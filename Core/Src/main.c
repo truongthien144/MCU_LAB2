@@ -232,13 +232,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if (counter <= 0){
 		if (stage == 0) {
 			display7SEG(2);
-			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, RESET); //TURN ON 7SEG 2
-			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET); //TURN ON 7SEG 2
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
 			stage = 1;
 		} else {
 			display7SEG(1);
-			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET); //TURN OFF 7SEG 2
-			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);//TURN ON 7SEG 1
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET); //TURN OFF 7SEG 2
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);//TURN ON 7SEG 1
 			stage = 0;
 		}
 		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
