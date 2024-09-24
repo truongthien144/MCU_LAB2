@@ -19,7 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "ex5.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -94,10 +94,24 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+ extern int second, minute, hour;
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  second++;
+	  if (second >= 60){
+		  second = 0;
+		  minute++;
+	  }
+	  if (minute >= 60){
+		  minute = 0;
+		  hour++;
+	  }
+	  if (hour >= 24){
+		  hour = 0;
+	  }
+	  updateClockBuffer();
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -225,13 +239,20 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 100;
+int time = 25;
+int counter = -1;
+int index_led = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	counter --;
 	if (counter <= 0){
-		counter = 100;
-		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		update7SEG(index_led);
+		index_led++;
+		if (index_led > 3){
+			index_led = 0;
+			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		}
+		counter = time;
 	}
+	counter--;
 }
 /* USER CODE END 4 */
 
